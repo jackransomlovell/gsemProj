@@ -1,0 +1,39 @@
+---
+title: "gsemAnalysis"
+author: "Jack Lovell"
+date: "4/17/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(devtools)
+install_github("GenomicSEM/GenomicSEM")
+require(GenomicSEM)
+```
+
+
+##Munge
+
+```{r}
+setwd('~/Desktop/gsemProj/')
+munge(files=c('./opi.DEPvEXP_trans.ancestry.noAF.tbl','./pts_eur_freeze2_overall.results'),
+      hm3='./w_hm3.noMHC.snplist', trait.names = c("sud","ptsd"))
+```
+
+
+##Cov matrix
+
+```{r}
+traits <- c("sud.sumstats.gz", "ptsd.sumstats.gz", "mdd.sumstats", "biploar.sumstats")
+sample.prev <- c(.51,.15, #mdd, #bipl)
+population.prev <- c(.23,.08,.16,.01)
+ld <- "eur_w_ld_chr/"
+wld <- "eur_w_ld_chr/"
+trait.names<-c("SUD","PTSD","MDD","BIPL")
+LDSCoutput <- ldsc(traits, sample.prev, population.prev, ld, wld, trait.names)
+```
