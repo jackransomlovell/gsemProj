@@ -16,6 +16,13 @@ install_github("GenomicSEM/GenomicSEM")
 require(GenomicSEM)
 ```
 
+```{r}
+library(usethis)
+library(devtools)
+library(tidyverse)
+library(GenomicSEM)
+```
+
 
 ##Munge
 
@@ -25,15 +32,24 @@ munge(files=c('./opi.DEPvEXP_trans.ancestry.noAF.tbl','./pts_eur_freeze2_overall
       hm3='./w_hm3.noMHC.snplist', trait.names = c("sud","ptsd"))
 ```
 
+```{r}
+munge(files=c('./mdd'),
+      hm3='./w_hm3.noMHC.snplist', N=480359, trait.names = c("mdd"))
+```
+
 
 ##Cov matrix
 
 ```{r}
-traits <- c("sud.sumstats.gz", "ptsd.sumstats.gz", "mdd.sumstats", "biploar.sumstats")
-sample.prev <- c(.51,.15, #mdd, #bipl)
-population.prev <- c(.23,.08,.16,.01)
+traits <- c("sud.sumstats.gz", "ptsd.sumstats.gz","mdd.sumstats.gz")
+sample.prev <- c(.51,.15,.28)
+population.prev <- c(.23,.08,.07)
 ld <- "eur_w_ld_chr/"
 wld <- "eur_w_ld_chr/"
-trait.names<-c("SUD","PTSD","MDD","BIPL")
+trait.names<-c("SUD","PTSD","mdd")
 LDSCoutput <- ldsc(traits, sample.prev, population.prev, ld, wld, trait.names)
+```
+
+```{r}
+LDSCoutput
 ```
